@@ -8,7 +8,7 @@ pipeline{
     stages{
     stage('checkout'){
         steps{
-    git branch:'master', url 'https://github.com/YashwanthK18/MyMavrenGuavaApp'
+    git branch:'master', url: 'https://github.com/YashwanthK18/MyMavrenGuavaApp'
         }
     }
         stage('build'){
