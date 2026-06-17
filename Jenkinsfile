@@ -1,47 +1,39 @@
-pipeline {
-    agent any  // Use any available agent
+pipeline{
+    agent any
 
-    tools {
-        maven 'Maven'  // Ensure this matches the name configured in Jenkins
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master', url: 'https://github.com/YashwanthK18/MyMavrenGuavaApp'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'  // Run Maven build
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'  // Run unit tests
-            }
-        }
-
-        
-        
-       
-        stage('Run Application') {
-            steps {
-                // Start the JAR application
-                sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
-            }
-        }
-
-        
+    tools{
+    mvn 'maven'
     }
 
-    post {
-        success {
-            echo 'Build and deployment successful!'
+    stages{
+    stage('checkout'){
+        steps{
+    git branch:'master', url 'https://github.com/YashwanthK18/MyMavrenGuavaApp'
         }
-        failure {
-            echo 'Build failed!'
+    }
+        stage('build'){
+        steps{
+            sh 'mvn clean package'
+        }
+        }
+        stage('test'){
+        steps{
+            sh 'mvn test'
+        }
+        }
+        stage('deploy'){
+        steps{
+            sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
+        }
+        }
+        
+    }
+    post{
+        success{
+            echo 'success'
+        }
+        failure{
+            echo 'failure'
         }
     }
 }
